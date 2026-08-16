@@ -7,6 +7,7 @@ Creates the FastAPI application and registers the API routers.
 from fastapi import FastAPI
 
 from routes.basic import router as basic_router
+from routes.users import router as users_router
 
 
 app = FastAPI(
@@ -21,3 +22,4 @@ app = FastAPI(
 # Keeping routes in separate modules prevents main.py from becoming
 # a large collection of endpoint implementations.
 app.include_router(basic_router)
+app.include_router(users_router)
