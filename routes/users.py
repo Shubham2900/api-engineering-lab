@@ -11,6 +11,7 @@ in-memory/dummy responses while we learn API fundamentals.
 """
 
 from fastapi import APIRouter
+from schemas.users import UserCreate
 
 
 # APIRouter allows us to group related endpoints into a separate
@@ -91,4 +92,12 @@ def get_user_orders(
         "user_id": user_id,
         "limit": limit,
         "status": status,
+    }
+
+@router.post("/users")
+def create_user(user: UserCreate):
+    return {
+        "name": user.name,
+        "email": user.email,
+        "age": user.age
     }
