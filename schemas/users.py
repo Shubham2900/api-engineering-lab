@@ -23,3 +23,21 @@ class UserResponse(BaseModel):
     name: str
     email: EmailStr
     age: int
+
+class UserUpdate(BaseModel):
+    """Schema for replacing an existing user."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    name: str = Field(min_length=2, max_length=100)
+    email: EmailStr
+    age: int = Field(ge=18, le=100)
+
+class UserPatch(BaseModel):
+    """Schema for partially updating a user."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    name: str | None = Field(default=None, min_length=2, max_length=100)
+    email: EmailStr | None = None
+    age: int | None = Field(default=None, ge=18, le=100)
