@@ -1,25 +1,14 @@
-"""
-Application entry point.
-
-Creates the FastAPI application and registers the API routers.
-"""
-
-from fastapi import FastAPI
-
-from routes.basic import router as basic_router
-from routes.users import router as users_router
+from services.user_ingestion import UserIngestionService
 
 
-app = FastAPI(
-    title="API Learning Project",
-    description="Hands-on API engineering with FastAPI.",
-    version="0.1.0",
-)
+users = [
+    {
+        "id": 10,
+        "name": "Test User",
+        "updated_at": "2026-08-21T14:00:00",
+    }
+]
 
+service = UserIngestionService()
 
-# Register the basic API routes.
-#
-# Keeping routes in separate modules prevents main.py from becoming
-# a large collection of endpoint implementations.
-app.include_router(basic_router)
-app.include_router(users_router)
+service.upsert_users(users)
