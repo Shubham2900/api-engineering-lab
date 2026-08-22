@@ -1,15 +1,13 @@
 import sqlite3
 from pathlib import Path
 
-
 DB_PATH = Path(__file__).resolve().parent.parent / "users.db"
 
+def get_connection(db_path=DB_PATH):
+    return sqlite3.connect(db_path)
 
-def get_connection():
-    return sqlite3.connect(DB_PATH)
-
-def create_tables():
-    connection = get_connection()
+def create_tables(db_path=DB_PATH):
+    connection = get_connection(db_path)
     cursor = connection.cursor()
 
     cursor.execute("""
@@ -23,8 +21,8 @@ def create_tables():
     connection.commit()
     connection.close()
 
-def get_tables():
-    connection = get_connection()
+def get_tables(db_path=DB_PATH):
+    connection = get_connection(db_path)
     cursor = connection.cursor()
 
     cursor.execute("""
@@ -37,8 +35,8 @@ def get_tables():
     connection.close()
     return tables
 
-def upsert_user(user):
-    connection = get_connection()
+def upsert_user(user, db_path=DB_PATH):
+    connection = get_connection(db_path)
 
     cursor = connection.cursor()
 
@@ -61,8 +59,8 @@ def upsert_user(user):
     connection.commit()
     connection.close()
 
-def get_users():
-    connection = get_connection()
+def get_users(db_path=DB_PATH):
+    connection = get_connection(db_path)
     cursor = connection.cursor()
 
     cursor.execute("""
